@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.impeccable/review/
+.impeccable/build/
+.impeccable/mocks/
+.env
+.env.*
+!.env.example
+*.local
+
+# Editor and OS files
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini

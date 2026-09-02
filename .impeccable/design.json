@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-30T23:59:34.5952600+08:00",
+  "title": "Design System: Velorah",
+  "extensions": {
+    "colorMeta": {
+      "observatory-navy": {
+        "role": "primary",
+        "displayName": "Observatory Navy",
+        "canonical": "hsl(201 100% 13%)",
+        "tonalRamp": ["#00131d", "#002b42", "#004766", "#006989", "#3388a0", "#66a6b8", "#a3cbd6", "#e0f0f4"]
+      },
+      "luminous-white": {
+        "role": "neutral",
+        "displayName": "Luminous White",
+        "canonical": "hsl(0 0% 100%)",
+        "tonalRamp": ["#262626", "#494949", "#6d6d6d", "#919191", "#b6b6b6", "#d0d0d0", "#e8e8e8", "#ffffff"]
+      },
+      "quiet-silver": {
+        "role": "neutral",
+        "displayName": "Quiet Silver",
+        "canonical": "hsl(240 4% 66%)",
+        "tonalRamp": ["#242429", "#3f3f46", "#5b5b63", "#77777f", "#93939b", "#b0b0b7", "#d0d0d5", "#f0f0f2"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Cinematic Display", "purpose": "Hero statements and brand marks." },
+      "body": { "displayName": "Quiet Body", "purpose": "Supporting copy and navigation." }
+    },
+    "shadows": [
+      { "name": "glass-inner-glint", "value": "inset 0 1px 1px rgba(255, 255, 255, 0.1)", "purpose": "Defines the optical edge of liquid-glass controls." }
+    ],
+    "motion": [
+      { "name": "fade-rise", "value": "0.8s ease-out", "purpose": "Introduces headline, copy, and primary action in 200ms stages." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Glass Navigation Button",
+      "kind": "button",
+      "refersTo": "button-glass",
+      "description": "Compact translucent command used in navigation.",
+      "html": "<button class=\"ds-glass-button\">Begin Journey</button>",
+      "css": ".ds-glass-button { position: relative; overflow: hidden; border: 0; border-radius: 9999px; background: rgba(255,255,255,.01); color: #fff; padding: 10px 24px; font: 500 14px Inter,sans-serif; box-shadow: inset 0 1px 1px rgba(255,255,255,.1); backdrop-filter: blur(4px); transition: transform .2s; } .ds-glass-button:hover { transform: scale(1.03); } .ds-glass-button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Glass Hero Button",
+      "kind": "button",
+      "refersTo": "button-glass-hero",
+      "description": "Expanded primary action for cinematic viewports.",
+      "html": "<button class=\"ds-glass-hero\">Begin Journey</button>",
+      "css": ".ds-glass-hero { border: 0; border-radius: 9999px; background: rgba(255,255,255,.01); color: #fff; padding: 20px 56px; font: 500 16px Inter,sans-serif; box-shadow: inset 0 1px 1px rgba(255,255,255,.1); backdrop-filter: blur(4px); transition: transform .2s; } .ds-glass-hero:hover { transform: scale(1.03); } .ds-glass-hero:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Primary Navigation",
+      "kind": "nav",
+      "description": "Quiet horizontal navigation with a serif brand mark and restrained link contrast.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-brand\">Velorah</a><a class=\"ds-nav-link\">Studio</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 32px; color: #fff; } .ds-brand { font: 400 30px 'Instrument Serif',serif; } .ds-nav-link { color: #a5a5ac; font: 400 14px Inter,sans-serif; transition: color .2s; } .ds-nav-link:hover, .ds-nav-link:focus-visible { color: #fff; }"
+    },
+    {
+      "name": "Cinematic Heading",
+      "kind": "custom",
+      "description": "Large serif statement with muted phrase contrast.",
+      "html": "<h1 class=\"ds-heading\">Where <span>dreams</span> rise through the silence.</h1>",
+      "css": ".ds-heading { max-width: 1280px; margin: 0; color: #fff; font: 400 clamp(48px,6.67vw,96px)/.95 'Instrument Serif',serif; letter-spacing: -2.46px; text-align: center; } .ds-heading span { color: #a5a5ac; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Observatory",
+    "overview": "Velorah places a calm editorial voice inside an immersive moving scene. The interface stays sparse so the video remains the material and the typography remains the thought. Controls are translucent and precise, present enough to guide without competing with the image.",
+    "keyCharacteristics": ["Full-bleed moving imagery as the primary visual material.", "High-contrast serif display type paired with quiet sans-serif utility text.", "Transparent pill controls with a fine luminous edge.", "Centered, spacious compositions with a single dominant statement."],
+    "rules": [
+      { "name": "The Footage Carries Color Rule", "body": "Interface color remains neutral so the moving image owns the scene's changing chroma.", "section": "colors" },
+      { "name": "The One Statement Rule", "body": "A cinematic viewport gets one display-scale thought; supporting text remains clearly subordinate.", "section": "typography" },
+      { "name": "The Real Depth Rule", "body": "Use imagery and motion for atmosphere; reserve blur and inset light for interactive glass only.", "section": "elevation" }
+    ],
+    "dos": ["Do let one real visual asset carry the viewport's depth and color.", "Do keep display typography large, light in weight, and tightly led.", "Do respect reduced-motion preferences while leaving content visible."],
+    "donts": ["Don't add decorative blobs, radial gradients, tint overlays, or floating cards.", "Don't place glass effects on passive decoration; glass indicates action.", "Don't introduce extra accent hues that compete with the footage."]
+  }
+}
