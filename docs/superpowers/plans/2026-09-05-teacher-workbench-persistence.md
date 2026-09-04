@@ -417,7 +417,7 @@ export type GlobalSearchProps = {
 }
 ```
 
-- [ ] **Step 1: Write failing interaction tests.**
+- [x] **Step 1: Write failing interaction tests.**
 
 ```tsx
 it("shows a matching student result and calls the selection handler", async () => {
@@ -435,29 +435,29 @@ it("opens help as an accessible Sheet", async () => {
 })
 ```
 
-- [ ] **Step 2: Run the focused tests and verify failure.**
+- [x] **Step 2: Run the focused tests and verify failure.**
 
 Run: `npx vitest run src/components/layout/GlobalSearch.test.tsx`
 
 Expected: FAIL because search results and help sheet are not implemented.
 
-- [ ] **Step 3: Implement `GlobalSearch`.**
+- [x] **Step 3: Implement `GlobalSearch`.**
 
 Use the current teacher, student, todo and communication queries to derive results. Debounce only the network-backed search if the API supports it; mock mode filters locally. Results use `role="listbox"` and `role="option"`, support ArrowUp/ArrowDown/Enter/Escape, and select the correct route/detail without writing business data locally.
 
-- [ ] **Step 4: Implement notifications.**
+- [x] **Step 4: Implement notifications.**
 
 The bell opens a Sheet listing unread communication records and relevant task reminders. “查看全部” navigates to communication or tasks based on the selected result. Marking a communication processed invalidates unread count and overview queries.
 
-- [ ] **Step 5: Implement class switching.**
+- [x] **Step 5: Implement class switching.**
 
 The class selector reads `WorkbenchContext.classes`. Selecting a class updates UI state and invalidates overview, students, attendance, schedules, assignments and communications queries. Keep the shell mounted so only content data refreshes.
 
-- [ ] **Step 6: Implement help Sheet and mobile focus behavior.**
+- [x] **Step 6: Implement help Sheet and mobile focus behavior.**
 
 The help Sheet lists the 8 business modules and common shortcuts. On mobile, opening the navigation Sheet moves focus inside it; selecting a link closes it and restores focus to the menu button. All icon-only buttons have tooltip text and accessible labels.
 
-- [ ] **Step 7: Run tests, lint and build.**
+- [x] **Step 7: Run tests, lint and build.**
 
 Run: `npx vitest run src/components/layout src/app`
 
@@ -467,7 +467,7 @@ Run: `npm run lint` and `npm run build`
 
 Expected: 0 lint errors and a successful build.
 
-- [ ] **Step 8: Commit the shell interactions.**
+- [x] **Step 8: Commit the shell interactions.**
 
 ```bash
 git add src/app/AppShell.tsx src/components/layout

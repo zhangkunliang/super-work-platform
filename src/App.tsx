@@ -17,6 +17,7 @@ import { AssignmentsPage } from "@/pages/AssignmentsPage"
 import { SchedulePage } from "@/pages/SchedulePage"
 import type { AppRoute, AttendanceStatus } from "@/types/education"
 import { LandingPage } from "@/pages/LandingPage"
+import type { GlobalSearchResult } from "@/components/layout/GlobalSearch"
 
 export default function App() {
   return <TeacherWorkbenchProvider><AppContent /></TeacherWorkbenchProvider>
@@ -60,6 +61,11 @@ function AppContent() {
 
   function handleNavigate(nextRoute: AppRoute) {
     dispatch({ type: "navigate", route: nextRoute })
+  }
+
+  function handleSelectSearchResult(result: GlobalSearchResult) {
+    dispatch({ type: "set-search", query: "" })
+    handleNavigate(result.type === "student" ? "students" : result.type === "todo" ? "assignments" : "communication")
   }
 
   function handleCreateTodo(input: CreateTodoInput) {
@@ -124,6 +130,12 @@ function AppContent() {
     return [classGroup.id, { ...baseMetrics, attendanceRate: Math.max(0, baseMetrics.attendanceRate - Math.round((absentCount / classGroup.studentCount) * 100)), attentionCount: attentions.filter((item) => item.studentId && !item.resolved && classStudents.some((student) => student.id === item.studentId)).length }]
   }))
   const liveSnapshot = { ...snapshot, selectedClassId: uiState.selectedClassId, classMetrics: liveClassMetrics, todos, attentions, schedule, assignments }
+  const normalizedSearch = uiState.searchQuery.trim().toLocaleLowerCase()
+  const searchResults: GlobalSearchResult[] = normalizedSearch ? [
+    ...snapshot.students.filter((student) => student.name.toLocaleLowerCase().includes(normalizedSearch) || String(student.seatNumber).includes(normalizedSearch)).map((student) => ({ id: student.id, type: "student" as const, title: student.name, description: `学生档案 · 座号 ${student.seatNumber}` })),
+    ...todos.filter((todo) => todo.title.toLocaleLowerCase().includes(normalizedSearch)).map((todo) => ({ id: todo.id, type: "todo" as const, title: todo.title, description: "今日任务" })),
+    ...attentions.filter((attention) => attention.title.toLocaleLowerCase().includes(normalizedSearch) || attention.studentName.toLocaleLowerCase().includes(normalizedSearch)).map((attention) => ({ id: attention.id, type: "communication" as const, title: attention.title, description: `通知 · ${attention.studentName}` })),
+  ] : []
 
   const requiresAuthentication = !isAuthenticated && route !== "landing"
 
@@ -131,7 +143,7 @@ function AppContent() {
     return (
       <>
         <TeacherDataProvider teacherId={snapshot.teacher.id}>
-          <AppShell route={route} onNavigate={handleNavigate} teacher={snapshot.teacher}>
+          <AppShell route={route} onNavigate={handleNavigate} teacher={snapshot.teacher} classes={snapshot.classes} selectedClassId={uiState.selectedClassId} onClassChange={(classId) => dispatch({ type: "select-class", classId })} searchValue={uiState.searchQuery} searchResults={searchResults} onSearchChange={(query) => dispatch({ type: "set-search", query })} onSelectSearchResult={handleSelectSearchResult} notifications={attentions} onResolveNotification={handleResolveAttention} onViewAllNotifications={() => handleNavigate("communication")}>
           {route === "workbench" ? (
             <WorkbenchPage snapshot={liveSnapshot} onCreateTodo={() => setTodoComposerOpen(true)} onOpenStudent={() => undefined} todos={todos} onToggleTodo={handleToggleTodo} todoUndo={todoUndo ?? undefined} onUndoTodo={handleUndoTodo} onOpenAttendance={() => setAttendanceOpen(true)} onCreateAssignment={() => setAssignmentComposerOpen(true)} attendanceFeedback={attendanceFeedback} attentions={attentions} onResolveAttention={handleResolveAttention} />
           ) : route === "schedule" ? (
