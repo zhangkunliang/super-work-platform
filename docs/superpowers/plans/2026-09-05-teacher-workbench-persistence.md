@@ -237,7 +237,7 @@ export function createApiTeacherRepository(input: {
 }): TeacherRepository
 ```
 
-- [ ] **Step 1: Write failing transport tests.**
+- [x] **Step 1: Write failing transport tests.**
 
 ```tsx
 it("maps a 422 response to field errors", async () => {
@@ -253,21 +253,21 @@ it("throws an auth error for a 401 response", async () => {
 })
 ```
 
-- [ ] **Step 2: Run the focused tests and verify the expected missing-module failure.**
+- [x] **Step 2: Run the focused tests and verify the expected missing-module failure.**
 
 Run: `npx vitest run src/data/apiClient.test.ts src/data/apiTeacherRepository.test.ts`
 
 Expected: FAIL because the API transport and adapter do not exist.
 
-- [ ] **Step 3: Add `@tanstack/react-query` and implement `ApiClient`.**
+- [x] **Step 3: Add `@tanstack/react-query` and implement `ApiClient`.**
 
 `createApiClient` must accept an injected fetcher for tests, attach `credentials: "include"`, add JSON headers only when a JSON body exists, parse JSON and Blob responses, and normalize status codes 401, 403, 404, 409, 422 and 5xx into a typed `RepositoryError`. Never log tokens, cookies or response bodies containing student data.
 
-- [ ] **Step 4: Implement `ApiTeacherRepository` with injected routes.**
+- [x] **Step 4: Implement `ApiTeacherRepository` with injected routes.**
 
 Each method calls the route map and converts the backend response into the domain model. Keep mapping functions explicit and unit-test them with representative success payloads. Do not add guessed default endpoint paths. If `VITE_DATA_PROVIDER=api` and no complete route map is supplied, provider initialization must throw a readable configuration error before rendering business pages.
 
-- [ ] **Step 5: Add provider selection.**
+- [x] **Step 5: Add provider selection.**
 
 ```tsx
 export function TeacherDataProvider({ children, teacherId }: { children: React.ReactNode; teacherId: string })
@@ -280,11 +280,11 @@ export function useAttendanceQuery(input: AttendanceQuery): UseQueryResult<Atten
 
 Create one QueryClient with retry disabled for 4xx errors and one retry for network/5xx errors. Query keys must come from `queryKeys.ts`. Keep mutation invalidation in feature hooks, not in individual presentational components.
 
-- [ ] **Step 6: Wire the provider around authenticated routes.**
+- [x] **Step 6: Wire the provider around authenticated routes.**
 
 The mock provider remains the default for local development. The API provider is selected only from `VITE_DATA_PROVIDER`. Remove direct `getWorkbenchSnapshot()` reads from `App.tsx` after all consumers are migrated in later tasks; until then, keep a single compatibility adapter rather than two competing sources of truth.
 
-- [ ] **Step 7: Run focused tests, lint and build.**
+- [x] **Step 7: Run focused tests, lint and build.**
 
 Run: `npx vitest run src/data`
 
@@ -294,7 +294,7 @@ Run: `npm run lint` and `npm run build`
 
 Expected: 0 lint errors and a successful production build.
 
-- [ ] **Step 8: Commit the API boundary.**
+- [x] **Step 8: Commit the API boundary.**
 
 ```bash
 git add package.json package-lock.json src/data src/App.tsx
