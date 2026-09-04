@@ -94,7 +94,7 @@ export type TeacherRepository = {
 }
 ```
 
-- [ ] **Step 1: Write failing model and repository tests.**
+- [x] **Step 1: Write failing model and repository tests.**
 
 ```tsx
 import { describe, expect, it } from "vitest"
@@ -118,19 +118,19 @@ describe("MockTeacherRepository", () => {
 })
 ```
 
-- [ ] **Step 2: Run the focused test and verify it fails for the missing repository implementation.**
+- [x] **Step 2: Run the focused test and verify it fails for the missing repository implementation.**
 
 Run: `npx vitest run src/data/mockTeacherRepository.test.ts`
 
 Expected: FAIL because the new model and repository files do not exist yet.
 
-- [ ] **Step 3: Define complete domain models.**
+- [x] **Step 3: Define complete domain models.**
 
 Add the types required by the interface above. Extend the current `StudentSummary`, `TodoItem`, `ScheduleItem` and `AssignmentItem` instead of changing their existing consumers abruptly. Add `CommunicationRecord`, `LessonPlan`, `LessonPlanStep`, `AttendanceSummary`, `WorkbenchOverview`, `StudentPage`, `SchedulePage`, `AssignmentPage`, `CommunicationPage`, `LessonPlanPage`, `TeacherSettings` and their query/input types.
 
 Use ISO strings for timestamps, opaque string IDs, integer counts, explicit union values for status, and nullable values for optional server fields. Do not use `any` or `unknown` in public domain return types.
 
-- [ ] **Step 4: Add pure selectors and validation.**
+- [x] **Step 4: Add pure selectors and validation.**
 
 Implement these pure functions:
 
@@ -146,11 +146,11 @@ export function validateAssignmentInput(input: CreateAssignmentInput): FieldErro
 
 Tests must cover empty arrays, all-completed tasks, absent/late/leave attendance, whitespace-only titles, and an end time before a start time.
 
-- [ ] **Step 5: Implement `MockTeacherRepository` from the existing fixture.**
+- [x] **Step 5: Implement `MockTeacherRepository` from the existing fixture.**
 
 Move mutable mock data into a private repository instance initialized from `getWorkbenchSnapshot()`. Add deterministic communication records, lesson plans, settings and per-student attendance records matching the reference page. Every read returns cloned arrays/objects. Every mutation updates only the repository instance and returns the cloned server-shaped result. Add a small deterministic async boundary using `Promise.resolve()`; do not use timers in unit tests.
 
-- [ ] **Step 6: Implement query keys.**
+- [x] **Step 6: Implement query keys.**
 
 ```ts
 export const queryKeys = {
@@ -168,7 +168,7 @@ export const queryKeys = {
 }
 ```
 
-- [ ] **Step 7: Run focused tests, lint and build.**
+- [x] **Step 7: Run focused tests, lint and build.**
 
 Run: `npx vitest run src/data/mockTeacherRepository.test.ts src/domain/workbench`
 
@@ -182,7 +182,7 @@ Run: `npm run build`
 
 Expected: production build exits 0.
 
-- [ ] **Step 8: Commit the repository boundary.**
+- [x] **Step 8: Commit the repository boundary.**
 
 ```bash
 git add src/types/education.ts src/domain/workbench src/data/teacherRepository.ts src/data/queryKeys.ts src/data/mockTeacherRepository.ts src/data/mockTeacherRepository.test.ts
