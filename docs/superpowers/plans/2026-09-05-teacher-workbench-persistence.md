@@ -335,7 +335,7 @@ export type WorkbenchUiAction =
   | { type: "toggle-notifications"; open: boolean }
 ```
 
-- [ ] **Step 1: Write failing reducer and navigation tests.**
+- [x] **Step 1: Write failing reducer and navigation tests.**
 
 ```tsx
 it("uses the reference page labels for navigation and excludes class management", () => {
@@ -352,25 +352,25 @@ it("keeps search and route changes in UI state only", () => {
 })
 ```
 
-- [ ] **Step 2: Run the focused tests and verify failure against the current route table.**
+- [x] **Step 2: Run the focused tests and verify failure against the current route table.**
 
 Run: `npx vitest run src/app/TeacherWorkbenchProvider.test.tsx src/app/AppShell.test.tsx`
 
 Expected: FAIL because current navigation includes `classes` and the UI reducer does not exist.
 
-- [ ] **Step 3: Add the reducer and provider.**
+- [x] **Step 3: Add the reducer and provider.**
 
 Keep URL hash changes as the source of route transitions. The reducer must not write to `window`; the provider effect synchronizes the hash. Reset route to `landing` when authentication is lost. Persist only `mobileNavOpen` preference if the user has enabled it; never persist business state.
 
-- [ ] **Step 4: Unify accessible and visible navigation labels.**
+- [x] **Step 4: Unify accessible and visible navigation labels.**
 
 Update `navigationItems` so each item has one visible label and one route. Use that same label for link accessible names. Keep `getRouteTitle` pure. Remove `classes` from the rendered navigation while leaving unknown hash parsing safe by returning `landing`.
 
-- [ ] **Step 5: Wire `App.tsx` to the provider and page registry.**
+- [x] **Step 5: Wire `App.tsx` to the provider and page registry.**
 
 `App.tsx` must render `LandingPage` and `AuthDialog` when unauthenticated. Authenticated routes render `TeacherDataProvider`, `TeacherWorkbenchProvider`, `AppShell`, and a route-to-page registry. It must not contain lists of students, todos, attendance records or assignments.
 
-- [ ] **Step 6: Run tests, lint and build.**
+- [x] **Step 6: Run tests, lint and build.**
 
 Run: `npx vitest run src/app src/App.test.tsx`
 
@@ -380,7 +380,7 @@ Run: `npm run lint` and `npm run build`
 
 Expected: 0 lint errors and a successful build.
 
-- [ ] **Step 7: Commit the composition refactor.**
+- [x] **Step 7: Commit the composition refactor.**
 
 ```bash
 git add src/App.tsx src/app src/components/layout src/types/education.ts
