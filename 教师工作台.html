@@ -2241,6 +2241,27 @@ __p+='`),t}),a+=`';
     </script>
     <script>
       (() => {
+        const replaceWechatCopy = () => {
+          const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+          const nodes = [];
+          let node;
+          while ((node = walker.nextNode())) nodes.push(node);
+          nodes.forEach((textNode) => {
+            if (textNode.nodeValue?.includes("微信群消息")) {
+              textNode.nodeValue = textNode.nodeValue.replaceAll("微信群消息", "企业微信群消息");
+            }
+          });
+        };
+
+        replaceWechatCopy();
+        new MutationObserver(replaceWechatCopy).observe(document.body, {
+          childList: true,
+          subtree: true,
+        });
+      })();
+    </script>
+    <script>
+      (() => {
         const extraTools = [
           ["Canva", "在线设计", "https://www.canva.com", "canva.com", "#7657c8"],
           ["Google Classroom", "课堂管理", "https://classroom.google.com", "classroom.google.com", "#4285f4"],
